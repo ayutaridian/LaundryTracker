@@ -24,7 +24,7 @@ while (command != "4"):
         iopesanan.mainUbahPesanan()
     elif (command == "3"):
         print()
-        iopesanan.allRekap()
+        iopesanan.hasil()
     elif (command == "4"):
         print("Terima kasih sudah menggunakan Laundy Tracker!")
         exit()
