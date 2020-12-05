@@ -195,26 +195,26 @@ def mainTambahPesanan():
     # Input data pesanan ke pesanan.csv
     tambahPesanan(customerid, beratcucian, isicucian, 'Dalam antrean', hargabayar, 'Belum lunas', jenislayanan, tanggalmulai, carapenyerahan)
 
-def hasilRekap():
-    with open('pesanan.csv', newline='') as csvfile:
-         
-        tanggalSelesai = input("Masukkan tanggal yang ingin dicari:")
-        data = csv.DictReader(csvfile)
-        for row in data:
-            if (row['tanggalPesananSelesai']==tanggalSelesai) :
-                print(row['orderID'], "||", row['customerID'], "||",  row['berat'], "||", row['cucian'], "||", row['status'], "||", row['hargaBayar'], "||", row['statusBayar'], "||", row['jenisLayanan'], "||", row['tanggalMasukPesanan'], "||", row['tanggalPesananSelesai'], "||", row['caraPenyerahan'])
-
-        if (row['tanggalPesananSelesai']!=tanggalSelesai) :
-            print("Hasil tidak ditemukan.\n")                      
-
-def harga():
+def harga(tglSelesai):
     df = pd.read_csv (r'pesanan.csv')
     #gsum1 = df.groupby(['caraPenyerahan']).sum('hargaBayar')
     #print ('Pendapatan per tanggal: ' + str(gsum1)+"\n")
+    sum1 = sum(df[df['tanggalPesananSelesai']==tglSelesai]['hargaBayar'])
+    print ('\nPendapatan: ' + str(sum1))
+    return (sum1)
 
-    sum1 = df['hargaBayar'].sum()
-    print ('\nPendapatan Total: ' + str(sum1)+"\n")
+def jmlPesanan(dateSelesai):
+    df = pd.read_csv (r'pesanan.csv')
+    #gsum1 = df.groupby(['caraPenyerahan']).sum('hargaBayar')
+    #print ('Pendapatan per tanggal: ' + str(gsum1)+"\n")
+    count = len(df[df['tanggalPesananSelesai'] == dateSelesai])
+    print ('Jumlah Pesanan: ' + str(count)+"\n")
+    return (count)
          
-def allRekap() :
-    hasilRekap()
-    harga()
+def allRekap(inputtgl) :
+    harga(inputtgl)
+    jmlPesanan(inputtgl)
+
+def hasil() :
+    tanggalSelesai = input("Masukkan tanggal yang ingin dicari:")
+    allRekap(tanggalSelesai)
