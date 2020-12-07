@@ -51,8 +51,9 @@ def ubahPesanan(orderID1, status1, statusBayar1):
         #fungsi mengubah pesanan
         if (data['orderID'] == orderID1):
             datap[index]['status'] = status1
-            datap[index]['tanggalPesananSelesai'] = datetime.datetime.now().strftime("%x") #otomatis set waktu hari ini
             datap[index]['statusBayar'] = statusBayar1
+            if (data['statusBayar'] == "Lunas"):
+                datap[index]['tanggalPesananSelesai'] = datetime.datetime.now().strftime("%x") #otomatis set waktu hari ini
         index = index + 1 
 
     fieldnames = ['orderID', 'customerID', 'berat', 'cucian', 'status', 'hargaBayar', 'statusBayar', 'jenisLayanan', 'tanggalMasukPesanan', 'tanggalPesananSelesai', 'caraPenyerahan']
